@@ -5,6 +5,24 @@ networks:
     external: false
 
 services:
+  konga:
+    image: pantsel/konga
+    depends_on:
+      - db
+    networks:
+      - kong-net
+    environment:
+      TOKEN_SECRET: df87sad9f7d8f7d8fbhjkh90gh08
+      DB_ADAPTER: postgres
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: kong
+      DB_PASSWORD: kong
+      DB_DATABASE: konga
+      NODE_ENV: development
+    ports:
+      - 1337:1337
+    
   lb:
     image: nginx
     volumes:
